@@ -16,22 +16,20 @@ CREATE TABLE products(
 
 
 
-INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES 
-    ("PS4", "Video Games", 299.99, 100),
-    ("God of War", "Video Games", 59.99, 200),
-    ("echo(second gen)", "Electronics" 99.9, 60),
-    ("Bose SoundSport Wirless Headphones", "Electronics", 149.00, 35),
-    ("Jenga", "Toys and Games", 9.99, 160),
-    ("Connect 4", "Toys and Games", 8.79, 100),
-    ("On the Road", "Books", 10.88, 120),
-    ("The Oracle Year: A Novel", "Books", 13.19, 250),
-    ("Bocce ball set", "Sports and Fitness", 33.99, 25),
-    ("Washers Toss Game", "Sports and Fitness", 49.99, 55);
 
 
-
-
+insert into products (product_name, department_name, price, stock_quantity)
+values
+	("Child Pancho Costume", "Costumes", 25.99, 10),
+    ("Child Sombrero", "Costumes", 6.71, 90),
+    ("Document Poster Tube", "Office", 25.99, 400),
+    ("16 GB Flash Drive", "Electronics", 9.17, 1000),
+    ("Motion Sensor Toilet Light", "Electronics", 15.90, 100),
+    ("Fidget Spinner", "Toys", 7.99, 350),
+    ("No Soliciting Sign", "Office", 6.49, 250),
+    ("USB-C to Lightning Cable", "Electronics", 10.49, 200),
+    ("Eloquent JavaScript", "Books", 25.15, 1500),
+    ("Cascadia T-Shirt", "Clothing", 19.99, 50);
 
 
 

@@ -22,17 +22,20 @@ connection.connect(function (err) {
 });
 //at bottom of^^ call functions to displayInventoyr
 
-
+var currenItemArr = []
 //define display inventory function 
 function displayInventory() {
+    //displays of inventory
     console.log("inside display inventory");
     connection.query("SELECT * FROM products", function (err, results) {
         if (err) throw err;
+
+        console.log("~^~^~^~^~^~^~^~^^~Bamazon~^~^~^~^~^~^~^~^~^^~^~^~^~^")
+
         console.log(results);
         for (var i = 0; i < results.length; i++) {
+            currenItemArr.push(results[i].item_id);
             console.log("#item: " + results[i].item_id + "|  product_name: " + results[i].product_name + "|  price: " + results[i].price);
-
-
         }
         inquirer.prompt([
             {
@@ -50,35 +53,50 @@ function displayInventory() {
                 name: "quantity",
                 type: "input",
                 message: "How many would you like to purchase?",
-                validate: function(value) {
+                validate: function (value) {
                     if (isNaN(value) === false) {
-                      return true;
+                        return true;
                     }
                     return false;
-                  }
+                }
             }
-            
-        ])
-        .then(function (answer) {
-            console.log(answer);
 
-
-        });
-
+        ]).then(function (answer) {
+            for (var i = 0; i < results.length; i++) {
+                if (results[i].item_id == answer.item) {
+                    if (results[i].stock_quantity >= answer.quantity) {
+                        var product = results[i].product_name;
+                        var newStockQuantity = results[i].stock_quantity - answer.quantity
+                        var price = results[i].price
+                        connection.query("UPDATE products SET ? WHERE ? ", [{ stock_quantity: newStockQuantity }, { item_id: answer.item }],
+                            function (err, res) {
+                                if (err) throw err;
+                                console.log(`You just purchased ${answer.quantity} ${product}.We charged your card $${price * answer.quantity}`);
+                                connection.end()
+                            });
+                    } else {
+                        console.log('there is not enough fullfill the order');
+                        connection.end()
+                    }
+                }
+            }
+        })
     });
+}
+    
+    
+
+    
     
 
 
-}
 
-
-//inside function query conection.query pass in string
 
 // cheack greatday ex.
 
-//get reponse back loop through reponse of query on 11 log item 
 
-//inquireer to prompt the user what item # they want to purchase and quanity
+
+
 
 //check to make sure item number is a valid# use query response to check if item number is valid
 
